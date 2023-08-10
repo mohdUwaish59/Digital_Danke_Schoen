@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}Book a Session{% endblock title %}
+
+{% block bookactive %}active{% endblock bookactive %} 
+
+{% block body %}
+  <style>
+    .booking-slots-content {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .booking-slots-content .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .booking-slots-content h1 {
+      text-align: center;
+    }
+
+    .booking-slots-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .booking-slots-content th,
+    .booking-slots-content td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .booking-slots-content th {
+      background-color: #f2f2f2;
+    }
+
+    .booking-slots-content .booking-link {
+      color: #4caf50;
+      text-decoration: none;
+    }
+
+    .booking-slots-content .booking-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Additional CSS styles for the form */
+
+    .booking-slots-content form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .booking-slots-content label {
+      margin-top: 10px;
+    }
+
+    .booking-slots-content input[type="text"],
+    .booking-slots-content input[type="email"],
+    .booking-slots-content input[type="submit"] {
+      width: 100%;
+      max-width: 300px;
+      padding: 8px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .booking-slots-content input[type="submit"] {
+      background-color: #4caf50;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .booking-slots-content input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+
+  <div class="container">
+    <div class="booking-slots-content">
+      <h1 class="text-center">Book Slot</h1>
+      <p class="text-center">Date: {{ slot.date }}</p>
+      <p class="text-center">Time: {{ slot.start_time }} - {{ slot.end_time }}</p>
+      <form method="post" action="{% url 'home:book_slot' slot.id %}" class="text-center">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone_number">Phone Number:</label>
+        <input type="text" id="phone_number" name="phone_number" required>
+
+        <label for="country_code">Country Code:</label>
+        <input type="text" id="country_code" name="country_code" required>
+
+        <input type="submit" value="Book" class="btn btn-primary">
+      </form>
+    </div>  
+  </div>
+{% endblock body %}

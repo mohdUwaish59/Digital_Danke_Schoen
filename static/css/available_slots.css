@@ -1,0 +1,46 @@
+/* styles.css */
+.booking-slots-content {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.booking-slots-content .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.booking-slots-content h1 {
+    text-align: center;
+}
+
+.booking-slots-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.booking-slots-content th,
+.booking-slots-content td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.booking-slots-content th {
+    background-color: #f2f2f2;
+}
+
+.booking-slots-content .booking-link {
+    color: #4caf50;
+    text-decoration: none;
+}
+
+.booking-slots-content .booking-link:hover {
+    text-decoration: underline;
+}
+
+/* Add any additional styles specific to the booking slots content if needed */

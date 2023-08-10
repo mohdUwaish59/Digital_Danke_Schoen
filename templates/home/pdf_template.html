@@ -1,0 +1,17 @@
+<!-- pdf_template.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Display</title>
+</head>
+<body>
+    <h1>PDF Display</h1>
+    <button onclick="openPDF()">Open PDF</button>
+    <script>
+        function openPDF() {
+            window.open("{% url 'home:display_pdf_resume' pdf_id %}", "_blank");
+        }
+    </script>
+</body>
+</html>

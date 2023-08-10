@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Log in{% endblock title %}
+
+{% block homeactive %}active{% endblock homeactive %}
+
+
+{% block body %}
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <!-- Image column - visible on larger screens -->
+      <div class="col-md-9 col-lg-6 col-xl-5 d-none d-md-block">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid" alt="Sample image">
+      </div>
+      <!-- Form column -->
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form method="post" action="/signup">
+          {% csrf_token %}
+          <!-- FirstName input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="fname" name="fname" class="form-control form-control-lg" placeholder="Enter your First Name" />
+            <label class="form-label" for="form3Example3"></label>
+          </div>
+          <!-- LastName input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="lname" name="lname" class="form-control form-control-lg" placeholder="Enter your Last Name" />
+            <label class="form-label" for="form3Example3"></label>
+          </div>
+          <!-- Username input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="username" name="username" class="form-control form-control-lg" placeholder="Enter your username" />
+            <label class="form-label" for="form3Example3"></label>
+          </div>
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Enter a valid email address" />
+            <label class="form-label" for="form3Example3"></label>
+          </div>
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <input type="password" id="pass1" name="pass1" class="form-control form-control-lg" placeholder="Enter your Password" />
+            <label class="form-label" for="form3Example3"></label>
+          </div>
+          <!-- ConfirmPassword input -->
+          <div class="form-outline mb-3">
+            <input type="password" id="pass2" name="pass2" class="form-control form-control-lg" placeholder="Confirm your Password" />
+            <label class="form-label" for="form3Example4"></label>
+          </div>
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Sign up</button>
+            <p class="small fw-bold mt-2 pt-1 mb-0">Already a Member? <a href="/RenderLogIn" class="link-danger">Log In</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+    /* Custom CSS */
+    .vh-100 {
+      margin-top: 40px; /* Add some margin on top to create space between form and navbar */
+    }
+  </style>
+{% endblock %}

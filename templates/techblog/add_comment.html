@@ -1,0 +1,12 @@
+<h2>Add Comment</h2>
+
+<form method="post" action="{% url 'TechBlog:addComment' post.sno %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="hidden" name="reply_to" value="{{ parent_comment.id }}">
+  <button type="submit">Add Comment</button>
+</form>
+
+
+
+

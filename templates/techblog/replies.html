@@ -1,0 +1,9 @@
+<h2>Reply </h2>
+
+
+<form method="post" action="{% url 'TechBlog:replies' comment.id %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Add Comment</button>
+</form> 
+

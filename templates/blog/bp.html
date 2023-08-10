@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% block title %}Technical Article - {{post_title}}{% endblock title %}
+{% block blogactive %} active{% endblock blogactive %}
+{% block body %}
+{% load humanize %}
+{% load extras %}
+    <style>
+        .comment {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        .comment .content {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .comment .replies {
+            margin-top: 10px;
+            margin-left: 30px;
+        }
+        .comment .nested-replies {
+            margin-left: 30px;
+            padding-left: 10px;
+            border-left: 1px solid #ddd;
+        }
+        .comment .reply-button {
+            color: blue;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .like-count {
+            padding: 2px 5px;
+            background-color: #5bc0de;
+            color: #fff;
+            border-radius: 3px;
+        }
+        .blog-post-title {
+            word-wrap: break-word;
+        }
+        .blog-post-content {
+            word-wrap: break-word;
+        }
+        .content {
+            word-wrap: break-word;
+        }
+    </style>
+    <div class="container my-3">
+        <h2 class="blog-post-title">{{ post.title }}</h2>
+        <p class="blog-post-meta">{{ post.timeStamp }} by <a href="/about">{{ post.author }}</a></p>
+        <hr>  
+        <!-- Tags section -->
+     <div class="tags">
+         <strong>Tags:</strong>
+        {% for tag in tags %}
+        <a href="{% url 'TechBlog:postsByTag' tag.id %}" class="badge badge-dark">{{ tag}}</a>
+        {% endfor %}
+        <hr>
+        <div class="blog-post-content">
+        <p>{{ post.content | safe }}</p>
+        </div>
+        <hr>
+        <div class="d-flex align-items-center">
+            {% if user.is_authenticated %}
+                {% include 'techblog/like.html' %}
+                <br>
+            {% else %}
+                <p><strong>Please Login to Like and post a Comment</strong></p>
+            {% endif %}
+        </div>
+
+        <div class="d-flex align-items-center">
+            <br>
+            <span class="ml-2">
+                <strong>Liked by:</strong>&nbsp;
+                <span class="like-count">{{ likes_count }}</span>&nbsp;
+                <strong>Users</strong>
+            </span>
+        </div>
+        
+        <hr>
+    </div>
+    </div>
+    <div class="container">
+        <p><h2>Comments ({{ comments_all }})</h2></p>
+        <div class="my-2">
+            {% if user.is_authenticated %}
+            <form action="{% url 'TechBlog:postTechComment' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Post Comment</label>
+                    <input type="text" class="form-control" name="comment" placeholder="Enter comment here">
+                </div>
+                <input type="hidden" name="post_Sno" value="{{ post.sno }}">
+                <input type="hidden" name="parent_Sno" value="">
+                <button type="submit" class="btn btn-dark">Submit</button>
+            </form>
+            {% else %}
+        
+            {% endif %}
+        </div>
+        {% for comment in comments %}
+        <hr>
+        <div class="comment">
+            <div class="row">
+                <div class="col-md-11">
+                    <div class="content">
+                        <div class="user-info">
+                            <div class="d-flex align-items-center">
+                                {% if comment.user.is_superuser %}
+                                <img class="rounded-circle shadow-1-strong me-3" src="/static/img/admin.png" alt="user" width="30" height="30">
+                                {% else  %}
+                                <img class="rounded-circle shadow-1-strong me-3" src="/static/img/user.png" alt="user" width="30" height="30">
+                                {% endif %}
+                                <div>
+                                    <b>{{ comment.user.username }}</b>
+                                    <span class="badge badge-dark">{{ comment.timestamp|naturaltime }}</span> | 
+                                    {% if comment.user.is_superuser %}
+                                    <span class="badge badge-dark">admin</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <p>{{ comment.comment }}</p>
+                        {% if user.is_authenticated %}
+                        <span class="reply-button" data-toggle="collapse" data-target="#replyBox{{ comment.sno }}" 
+                        aria-expanded="false" aria-controls="replyBox{{ comment.sno }}">Reply</span>
+                        {% else %}
+                        {% endif %}
+                    </div>
+                    <div class="collapse" id="replyBox{{ comment.sno }}">
+                        <div class="card card-body my-2">
+                            <form action="{% url 'TechBlog:postTechComment' %}" method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="comment">Post a reply</label>
+                                    <input type="text" class="form-control" name="comment" placeholder="Enter comment here">
+                                    <input type="hidden" name="parent_Sno" value="{{ comment.sno }}">
+                                </div>
+                                <input type="hidden" name="post_Sno" value="{{ post.sno }}">
+                                <button type="submit" class="btn btn-dark">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="replies">
+                        {% for reply in replyDict|get_val:comment.sno %}
+                            {% include 'blog/nested_replies.html' with nested_reply=reply level=1 %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

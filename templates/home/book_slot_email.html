@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Subscription Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        .title {
+            font-size: 24px;
+            color: #333333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            font-size: 16px;
+            color: #666666;
+            margin-bottom: 20px;
+        }
+
+        .download-button {
+            display: block;
+            width: 200px;
+            height: 40px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-align: center;
+            line-height: 40px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 0 auto;
+        }
+
+        .footer {
+            font-size: 14px;
+            color: #999999;
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Digital Danke Schön</div>
+        <div class="message">Thank you for choosing us! Please keep safe this reference id with you. It will help us to authorize you into the session.<br>
+        We will send you the meeting link a day before the session. If you do not recieve the email, kindly check junk/spam folder of your email otherwise<br>
+        write back to us informing about the meeting link.
+        </div>
+        <div class="list-group">
+            <a class="list-group-item list-group-item-action list-group-item-info">The session ID is: {{session_id}}</a>
+          </div>
+        <div class="footer">This is a system-generated email. Please do not reply.</div>
+    </div>
+</body>
+</html>
+

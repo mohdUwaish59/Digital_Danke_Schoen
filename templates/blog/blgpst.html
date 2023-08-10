@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block title %}Blogpost{% endblock title %}
+{% block body %}
+{% load humanize %}
+{% load extras %}
+<div class="container my-3">
+    <h2 class="blog-post-title">{{ post.title }}</h2>
+    <p class="blog-post-meta">{{ post.timeStamp }} by <a href="/about">{{ post.author }}</a></p>
+    <p>{{ post.content }}</p>
+    <hr>
+</div>
+<div class="container">
+    <h2>Comments ({{ comments.count }})</h2>
+    <div class="my-2">
+        {% if user.is_authenticated %}
+        <form action="{% url 'postComment' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleInputEmail1">Post Comment</label>
+                <input type="text" class="form-control" name="comment" placeholder="Enter comment here">
+            </div>
+            <input type="hidden" name="postSno" value="{{ post.sno }}">
+            <input type="hidden" name="parentSno" value="">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        {% else %}
+        Please login to post a comment
+        {% endif %}
+    </div>
+    {% for comment in comments %}
+    <div class="row my-3">
+        <div class="col-md-1">
+            <img class="rounded mx-auto d-block img-fluid border border-dark p-2" src="/static/img/user.png" alt="user" style="max-width: 90px;">
+        </div>
+        <div class="col-md-11">
+            <b>{{ comment.user.username }}</b>
+            <span class="badge badge-secondary">{{ comment.timestamp|naturaltime }}</span>
+            <p>{{ comment.comment }}</p>
+            <div class="reply mx-0">
+                <span class="btn btn-sm btn-link" data-toggle="collapse" data-target="#replyBox{{ comment.sno }}" aria-expanded="false" aria-controls="replyBox{{ comment.sno }}">
+                    Reply
+                </span>
+                <div class="collapse" id="replyBox{{ comment.sno }}">
+                    <div class="card card-body my-2">
+                        <form action="{% url 'postComment' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="comment">Post a reply</label>
+                                <input type="text" class="form-control" name="comment" placeholder="Enter comment here">
+                                <input type="hidden" name="parentSno" value="{{ comment.sno }}">
+                            </div>
+                            <input type="hidden" name="postSno" value="{{ post.sno }}">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="replies bg-light my-2 p-2" style="padding-left: 30px; margin-top: 10px;">
+                    {% for reply in replyDict|get_val:comment.sno %}
+                    <div class="reply">
+                        <b>{{ reply.user.username }}</b>
+                        <span class="badge badge-secondary">{{ reply.timestamp|naturaltime }}</span>
+                        <p>{{ reply.comment }}</p>
+                        <button class="btn btn-sm btn-link collapsed" type="button" data-toggle="collapse" data-target="#replyBox{{ reply.sno }}" aria-expanded="false" aria-controls="replyBox{{ reply.sno }}">
+                            Reply to the above Comment
+                        </button>
+                        <div class="collapse" id="replyBox{{ reply.sno }}">
+                            <div class="card card-body my-2">
+                                <form action="{% url 'postComment' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="comment">Post a reply</label>
+                                        <input type="text" class="form-control" name="comment" placeholder="Enter comment here">
+                                        <input type="hidden" name="parentSno" value="{{ reply.sno }}">
+                                    </div>
+                                    <input type="hidden" name="postSno" value="{{ post.sno }}">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="replies bg-light my-2 p-2" style="padding-left: 40px; margin-top: 10px;">
+                            {% for nested_reply in replyDict|get_val:reply.sno %}
+                            <div class="reply">
+                                <b>{{ nested_reply.user.username }}</b>
+                                <span class="badge badge-secondary">{{ nested_reply.timestamp|naturaltime }}</span>
+                                <p>{{ nested_reply.comment }}</p>
+                                <button class="btn btn-sm btn-link collapsed" type="button" data-toggle="collapse" data-target="#replyBox{{ nested_reply.sno }}" aria-expanded="false" aria-controls="replyBox{{ nested_reply.sno }}">
+                                    Reply to the above Comment
+                                </button>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

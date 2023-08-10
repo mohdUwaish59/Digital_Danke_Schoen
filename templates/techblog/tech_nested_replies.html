@@ -1,0 +1,97 @@
+{% load humanize %}
+{% load extras %}
+<style>
+    .comment {
+        margin-bottom: 20px;
+        padding-left: 20px;
+    }
+    .comment .content {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .comment .replies {
+        margin-top: 10px;
+        margin-left: 30px;
+    }
+    .comment .nested-replies {
+        margin-left: 30px;
+        padding-left: 10px;
+        border-left: 1px solid #ddd;
+    }
+    .comment .reply-button {
+        color: blue;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    @media (max-width: 576px) {
+        .comment .content {
+            padding: 10px;
+            margin-left: 0;
+            border-left: none;
+            border-right: none;
+        }
+        .comment .replies {
+            margin-left: 0;
+            padding-left: 0;
+            border-left: none;
+        }
+        .comment .nested-replies {
+            margin-left: 0;
+            padding-left: 10px;
+            border-left: none;
+        }
+    }
+</style>
+<div class="comment">
+    <div class="row">
+        <div class="col-md-11">
+            <div class="content">
+                <div class="user-info">
+                    <div class="d-flex align-items-center">
+                        {% if comment.user.is_superuser %}
+                        <img class="rounded-circle shadow-1-strong me-3" src="/static/img/admin.png" alt="user" width="30" height="30">
+                        {% else  %}
+                        <img class="rounded-circle shadow-1-strong me-3" src="/static/img/user.png" alt="user" width="30" height="30">
+                        {% endif %}
+                        <div>
+                            <b>{{ comment.user.username }}</b>
+                            <span class="badge badge-dark">{{ comment.timestamp|naturaltime }}</span> | 
+                            {% if comment.user.is_superuser %}
+                            <span class="badge badge-dark">admin</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <p>{{ nested_reply.comment }}</p>
+                {% if user.is_authenticated %}
+                <span class="reply-button" data-toggle="collapse" data-target="#replyBox{{ nested_reply.sno }}" 
+                aria-expanded="false" aria-controls="replyBox{{ nested_reply.sno }}">Reply to the above Comment</span>
+                {% else %}
+                {% endif %}
+            </div>
+            <div class="collapse" id="replyBox{{ nested_reply.sno }}">
+                <div class="card card-body my-2">
+                    <form action="{% url 'TechBlog:postTechComment' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="comment">Post a reply</label>
+                            <input type="text" class="form-control" name="comment" placeholder="Enter comment here">
+                            <input type="hidden" name="parent_Sno" value="{{ nested_reply.sno }}">
+                        </div>
+                        <input type="hidden" name="post_Sno" value="{{ post.sno }}">
+                        <button type="submit" class="btn btn-info">Submit</button>
+                    </form>
+                </div>
+            </div>
+            {% if level < 10 %}
+                <div class="nested-replies">
+                    {% for next_reply in replyDict|get_val:nested_reply.sno %}
+                        {% include 'techblog/tech_nested_replies.html' with nested_reply=next_reply level=level|add:1 %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

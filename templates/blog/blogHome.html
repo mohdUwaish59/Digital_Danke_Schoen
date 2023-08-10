@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+
+{% block title %}Study in Germany - Home{% endblock title %}
+{% block blogactive %} active {% endblock blogactive %}">
+
+{% block body %}
+
+<div class="container">
+    <div class="jumbotron my-3">
+      <div class="row">
+        <div class="col-md-6 jumbotron-content">
+          <!-- Your jumbotron content goes here -->
+          <div class="intro-text">
+          <h1 id="typed-intro" class="display-4"></h1>
+          </div>
+          <hr class="my-6">
+          <p class="lead">Explore Articles about <span id="typed-container" class="typing-animation"></span></p>
+          <hr class="my-2">
+          <a class="btn btn-outline-dark" href="/available_slots" role="button">Book a 1:1 Session</a>
+          <a class="btn btn-outline-success" href="/PDF" role="button">Download Free E-book PDF</a>
+          <a class="btn btn-outline-primary" href="/opportunities" role="button">Study Abroad Announcements</a>
+          <!-- Add more buttons here as needed -->
+        </div>
+        <div class="col-md-6 trapezium-image">
+          {% load static %}
+         
+          <img src="/static/img/study_in_germany.png" alt="Logo">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+          <hr>  <h2>Study in Germany - Articles by Digital Danke Schön</h2><hr><br>
+        </div>
+        {% for post in page_obj %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title custom-card-header">{{ post.title |safe|truncatechars:45 }}</h5>
+                        <strong class="d-inline-block mb-2 text-primary">Article by {{ post.author }}</strong>
+                        <p class="card-text">{{ post.content|safe|truncatechars:200 }}</p>
+                        <a href="{% url 'blogpost' post.slug %}" class="btn btn-dark">Read More</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-md-12">
+                <p>No blog posts found.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Display pagination links -->
+<div class="pagination">
+    <ul class="pagination-list">
+        {% if page_obj.has_previous %}
+            <li class="pagination-item">
+                <a href="?page=1" class="btn btn-outline-dark pagination-link">&laquo; first</a>
+            </li>
+            <li class="pagination-item">
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-dark pagination-link">previous</a>
+            </li>
+        {% endif %}
+
+        <li class="pagination-item">
+            <span class="current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+        </li>
+
+        {% if page_obj.has_next %}
+            <li class="pagination-item">
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-dark pagination-link">next</a>
+            </li>
+            <li class="pagination-item">
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-dark pagination-link">&raquo; last</a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var typed = new Typed('#typed-intro', {
+        strings: ['<strong> Study in Germany</strong>'],
+        typeSpeed: 60,
+        loop: false
+      });
+    });
+      // Wait for the document to be fully loaded
+      document.addEventListener("DOMContentLoaded", function () {
+        // Configure Typed.js
+        var typed = new Typed("#typed-container", {
+          strings: ["Detailed Blog Articles", "Book a 1:1 consultation Session", "Donwload Free PDF for foundation knowledge"],
+          typeSpeed: 100, // Speed of typing in milliseconds
+          backSpeed: 50, // Speed of erasing in milliseconds
+          loop: true, // Whether to keep looping through the words
+          loopCount: Infinity, // How many times to loop (Infinity for endless loop)
+        });
+      });
+    </script>
+
+
+<style>
+    /* Add your custom styles here */
+
+    /* Pagination Styles */
+    .pagination {
+        margin-top: 20px;
+        margin-bottom: 20px; /* Added margin at the bottom */
+        display: flex;
+        justify-content: center;
+    }
+
+    .pagination-list {
+        display: flex;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .pagination-item {
+        margin: 0 5px;
+    }
+
+    .pagination-link {
+        padding: 6px 10px;
+        border-radius: 4px;
+        text-decoration: none;
+        color: #333;
+    }
+
+    .pagination-link:hover {
+        background-color: #f0f0f0;
+    }
+
+    .current {
+        padding: 6px 10px;
+        font-weight: bold;
+    }
+
+    /* Card Styles */
+    .custom-card-header {
+        background-color: #174151;
+        color: white;
+        padding: 10px;
+    }
+
+
+
+
+   
+    @keyframes typing {
+from {
+width: 0;
+}
+to {
+width: 100%;
+}
+}
+
+.typing-animation {
+    animation: typing 2s linear;
+    } 
+    #typed-container {
+        color: #174151; 
+        font-weight: bold;
+      font-style: italic;
+      }
+    
+      .display-4 {
+        font-size: 1.8em;
+        font-weight: bold;
+        color: #174151;
+      }
+    
+        .jumbotron {
+            position: relative;
+            padding: 3rem;
+            background-color: #f8f9fa;
+          }
+        
+          .jumbotron-content {
+            z-index: 1;
+          }
+        
+          .trapezium-image {
+            position: absolute;
+            top: 0;
+            right: 0; /* Set the image to the extreme right */
+            bottom: 0;
+            width: 50%; /* Adjust this value to control the width of the trapezium image */
+            overflow: hidden;
+            transform: skewX(15deg);
+            transform-origin: top right;
+          }
+        
+          .trapezium-image img {
+            position: absolute;
+            top: 0;
+            left: 0; /* Adjust the left to 0 to align the image within the trapezium */
+            width: 100%;
+            height: 100%;
+            transform: skewX(-15deg);
+            transform-origin: top left;
+          }
+          
+          /* Apply styles for screens with a maximum width of 767px (typical for mobile devices) */
+          @media (max-width: 767px) {
+            .trapezium-image {
+              display: none; /* Hide the image on mobile */
+            }
+          }
+
+
+</style>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %} Subscribe {% endblock title %}
+
+{% block body %}
+<!DOCTYPE html>
+
+<body>
+<div class="container">
+    <div class="booking-slots-content">
+        <h2>Please share your email</h2>
+        <form method="POST" action="{% url 'home:PDF' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+        </form>
+   </div>
+</div>
+</body>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+    .container .booking-slots-content {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+   .booking-slots-content .h1 {
+        text-align: center;
+    }
+    booking-slots-content .form {
+        margin-top: 20px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+    input[type="submit"] {
+        background-color: #4caf50;
+        color: #fff;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+{% endblock %}

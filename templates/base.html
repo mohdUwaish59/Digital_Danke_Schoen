@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/static/favicon/site.webmanifest">
+
+
+  <style>
+    .site-footer {
+      background-color: #26272b;
+      padding: 45px 0 20px;
+      font-size: 15px;
+      line-height: 24px;
+      color: #737373;
+    }
+    .site-footer hr {
+      border-top-color: #bbb;
+      opacity: 0.5;
+    }
+    .site-footer hr.small {
+      margin: 20px 0;
+    }
+    .site-footer h6 {
+      color: #fff;
+      font-size: 16px;
+      text-transform: uppercase;
+      margin-top: 5px;
+      letter-spacing: 2px;
+    }
+    .site-footer a {
+      color: #737373;
+    }
+    .site-footer a:hover {
+      color: #3366cc;
+      text-decoration: none;
+    }
+    .footer-links {
+      padding-left: 0;
+      list-style: none;
+    }
+    .footer-links li {
+      display: block;
+    }
+    .footer-links a {
+      color: #737373;
+    }
+    .footer-links a:active, .footer-links a:focus, .footer-links a:hover {
+      color: #3366cc;
+      text-decoration: none;
+    }
+    .footer-links.inline li {
+      display: inline-block;
+    }
+    .site-footer .social-icons {
+      text-align: right;
+    }
+    .site-footer .social-icons a {
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      margin-left: 6px;
+      margin-right: 0;
+      border-radius: 100%;
+      background-color: #33353d;
+    }
+    .copyright-text {
+      margin: 0;
+    }
+    @media (max-width: 991px) {
+      .site-footer [class^=col-] {
+        margin-bottom: 30px;
+      }
+    }
+    @media (max-width: 767px) {
+      .site-footer {
+        padding-bottom: 0;
+      }
+      .site-footer .copyright-text,
+      .site-footer .social-icons {
+        text-align: center;
+      }
+    }
+    .social-icons {
+      padding-left: 0;
+      margin-bottom: 0;
+      list-style: none;
+    }
+    .social-icons li {
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+    .social-icons li.title {
+      margin-right: 15px;
+      text-transform: uppercase;
+      color: #96a2b2;
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .social-icons a {
+      background-color: #eceeef;
+      color: #818a91;
+      font-size: 16px;
+      display: inline-block;
+      line-height: 44px;
+      width: 44px;
+      height: 44px;
+      text-align: center;
+      margin-right: 8px;
+      border-radius: 100%;
+      -webkit-transition: all .2s linear;
+      -o-transition: all .2s linear;
+      transition: all .2s linear;
+    }
+    .social-icons a:active, .social-icons a:focus, .social-icons a:hover {
+      color: #fff;
+      background-color: #29aafe;
+    }
+    .social-icons.size-sm a {
+      line-height: 34px;
+      height: 34px;
+      width: 34px;
+      font-size: 14px;
+    }
+    .social-icons a.facebook:hover {
+      background-color: #3b5998;
+    }
+    .social-icons a.twitter:hover {
+      background-color: #00aced;
+    }
+    .social-icons a.linkedin:hover {
+      background-color: #007bb6;
+    }
+    .social-icons a.dribbble:hover {
+      background-color: #ea4c89;
+    }
+
+    /* Additional custom styles */
+
+    body {
+      /* Set a minimum height to fill the viewport and ensure footer stays at the bottom */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Add space between buttons in vertical form */
+    .btn {
+      margin-bottom: 10px; /* Adjust the value as per your requirement */
+    }
+
+    /* Adjust footer to stay at the bottom */
+    .site-footer {
+      flex-shrink: 0; /* Prevent the footer from shrinking when content is short */
+      margin-top: auto; /* Push the footer to the bottom of the page */
+    }
+    .navbar-custom {
+      background-color: black;
+  }
+  .custom-login-btn {
+    background-color:#174151;
+    color:white;
+    /* You can add more styles here to customize the button appearance */
+  }
+  @media (max-width: 767px) {
+    .form-inline .input-group .input-group-append {
+      margin: 0;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .form-inline .form-control {
+      padding-right: 50px; /* To make space for the search button */
+    }
+  }
+ 
+  @media (min-width: 768px) {
+    .form-inline .input-group {
+      position: relative;
+      flex-wrap: nowrap;
+    }
+  
+    .form-inline .input-group .form-control {
+      margin-right: 10px; /* Add some margin between the search bar and login button */
+      margin-left: 10px; /* Add some margin to the left of the search bar */
+      max-width: calc(100% - 120px); /* Adjust the value as needed to create space */
+    }
+  
+    .custom-login-btn {
+      position: absolute;
+      top: 50%;
+      right: 10px; /* Add some spacing from the right boundary */
+      transform: translateY(-50%);
+    }
+  }
+  </style>
+
+
+
+
+  <title>{% block title %} {% endblock title %}</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <a class="navbar-brand" href="/">
+      <img src="/static/logo/logo.png" alt="Your Logo" height="42">
+  </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item {% block homeactive %} {% endblock homeactive %}">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item {% block aboutactive %} {% endblock aboutactive %}">
+          <a class="nav-link" href="/about">About Us</a>
+        </li>
+        <li class="nav-item {% block contactactive %} {% endblock contactactive %}">
+          <a class="nav-link" href="/contact">Contact Us</a>
+        </li>
+        <li class="nav-item {% block techblogactive %} {% endblock techblogactive %}">
+          <a class="nav-link" href="/techblog">Technical Articles</a>
+        </li>
+        <li class="nav-item dropdown {% block blogactive %} {% endblock blogactive %}">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Study in Germany
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item"  href="/blog">Home</a>
+            <a class="dropdown-item" href="/available_slots">Book a 1:1 Session</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/PDF">Download Free E-book PDF</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown {% block abroadactive %} {% endblock abroadactive %}">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Study Abroad
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item"  href="/opportunities">Home</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item"  href="/opportunities/study - MS/PHD">Study abroad MS/PHD</a>
+            <a class="dropdown-item" href="/opportunities/job">Job Opportunitites</a>
+            <a class="dropdown-item" href="/opportunities/scholarship - MS/PHD">Scholarships</a>
+          </div>
+        </li>
+      </ul>
+      <div class="ml-auto form-inline">
+        <form method="get" action="/search" class="my-2 my-lg-0 mx-3">
+          <div class="input-group">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query" id="query">
+            <div class="input-group-append">
+              <button class="btn btn-primary my-2 my-sm-0" type="submit">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+
+        {% if user.is_authenticated %}
+          <ul class="navbar-nav mr-2">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href='#' id="navbarDropdown" role="button" data-toggle="dropdown">Welcome {{ request.user }}</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/logout">Logout</a>
+              </div>
+            </li>
+          </ul>
+      </div>
+        {% else %}
+          <!-- Button to trigger Login modal -->
+          <a class="btn custom-login-btn" href="/RenderLogIn" role="button">Log In</a>
+        {% endif %}
+    </div>
+  </nav>
+
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      <strong>Message: </strong> {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+
+  {% block body %}{% endblock body %}
+  {% block js %}{% endblock js %}
+
+      {% block footer %}
+      <!-- Site footer -->
+      <footer class="site-footer mt-auto">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <h6>About</h6>
+              <p class="text-justify">Digital Danke Schön empowers ambitious individuals in the tech world, offering articles, German education guidance, 
+                study abroad opportunities, scholarships, and personalized sessions. It aims to create a vibrant community of tech enthusiasts, fostering a 
+                future of boundless innovation.</p>
+            </div>
+      
+            <div class="col-xs-6 col-md-3">
+              <h6>Categories</h6>
+              <ul class="footer-links">
+                <li><a href="/techblog">Technical Articles</a></li>
+                <li><a  href="/blog">Study in Germany</a></li>
+                <li><a href="/available_slots">Book a Consultation session</a></li>
+              </ul>
+            </div>
+      
+            <div class="col-xs-6 col-md-3">
+              <h6>Quick Links</h6>
+              <ul class="footer-links">
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+                <li><a href="/PDF">Download Free E-book PDF</a></li>
+              </ul>
+            </div>
+          </div>
+          <hr>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8 col-sm-6 col-xs-12">
+              <p class="copyright-text">Copyright &copy; {% now "Y" %} All Rights Reserved by 
+                <a href="/">Digital Danke Schön</a>.
+              </p>
+            </div>
+      
+            <div class="social-icons">
+              <!-- Replace the URLs with the links to your social media profiles -->
+              <a href="https://www.facebook.com/yourpage" target="_blank"><i class="fab fa-facebook"></i></a>
+              <a href="https://www.twitter.com/yourpage" target="_blank"><i class="fab fa-github"></i></a>
+              <a href="https://www.instagram.com/yourpage" target="_blank"><i class="fab fa-instagram"></i></a>
+              <a href="https://www.instagram.com/yourpage" target="_blank"><i class="fab fa-twitter"></i></a>
+              <!-- Add more social media icons as needed (e.g., LinkedIn, YouTube, etc.) -->
+            </div>
+          </div>
+        </div>
+      </footer>
+      {% endblock footer %}
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
+      
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+      </body>
+      </html>

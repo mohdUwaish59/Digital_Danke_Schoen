@@ -1,0 +1,285 @@
+{% extends 'base.html' %}
+
+{% block title %} About Us - Digital Danke Schön {% endblock title %}
+{% block aboutactive %} active{% endblock aboutactive %}
+
+{% block body %}
+<!-- Home Header -->
+<header id="home" class="header">
+    <div class="header-content container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="header-title">Welcome to <span class="name">Digital Danke Schön</span></h1>
+                <p class="section-subtitle">Passionate about creating digital experiences.</p>
+                <!-- <button class="btn btn-primary" onclick="openPDF({{ resume.id }})">View Resume</button> -->
+            </div>
+            <div class="col-md-6 trapezium-image">
+                <img src="/static/img/about_1.png" alt="Logo">
+            </div>
+        </div>
+    </div>
+</header>
+        <script>
+            function openPDF(documentId) {
+                window.open(`/Mohd_Uwaish_resume/${documentId}/`, "_blank");
+            }
+        </script>
+        
+       <!-- About Section -->
+       <section class="section animated-text" id="about">
+        <div class="container text-center">
+            <p class="about-content">
+                Unleash Your Potential, Embrace New Horizons! <br>
+                Discover the limitless possibilities of the tech world while thriving in the heart of Europe. At Digital Danke Schön, we empower ambitious minds 
+                like yours with an enriching blend of tech articles, expert guidance for studying and living in Germany, study abroad opportunities, exclusive 
+                scholarships, and exciting job prospects.<br><hr>
+
+               🚀 Elevate Your Tech Game: Stay ahead in the dynamic tech landscape with our cutting-edge articles, curated to inspire innovation and foster growth.<br>
+              <hr>
+               🌍 Embrace the German Experience: We're your compass to navigate the German education system, cultural nuances, and local gems, making your journey 
+               abroad seamless and unforgettable.<br><hr>
+               💡 Unlock Global Opportunities: Dive into an ocean of international study programs, scholarships, and internships that will broaden your horizons and
+               open doors to a world of endless possibilities.<br><hr>
+              🎯 Personalized Guidance: Take advantage of our one-on-one guidance sessions with us, tailored to fuel your passions, maximize 
+              potential, and pave the way to achieve your dream of studying in Germany.<br><hr>
+
+             Join our vibrant community of tech enthusiasts, dreamers, and go-getters. Let Digital Danke Schoen be your guiding light as you embark on an extraordinary 
+             adventure of knowledge, growth, and triumph. Dare to dream big, and together, let's forge a future where innovation knows no bounds! 🌟"
+            </p>
+        </div>
+    </section>
+        <!-- Services Section -->
+        <section class="section bg-light" id="services">
+            <div class="container text-center">
+                <h2 class="section-title">Services</h2>
+                <p class="section-subtitle">What you will get here.....</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="service-card">
+                            <i class="icon ti-settings"></i>
+                            <h4 class="service-title">
+                                <a href="/techblog">The Algorithmic Bahnof</a>
+                            </h4>
+                            <p class="service-description">
+                                Well curated and cutting-edge articles about Information Technology, Software Development, and Data Science.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="service-card">
+                            <i class="icon ti-settings"></i>
+                            <h4 class="service-title">
+                                <a href="/blog">Study in Germany</a>
+                            </h4>
+                            <p class="service-description">
+                                Want to come to Germany? Don't worry, We got you covered. Visit our blog articles about studying in Germany and for more information book a 1:1 personal guidance session with us.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="service-card">
+                            <i class="icon ti-settings"></i>
+                            <h4 class="service-title">
+                                <a href="/PDF">Free PDF Guide Sheet</a>
+                            </h4>
+                            <p class="service-description">
+                                Download the free PDF guide sheet prepared by us about how to come and study in Germany.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="service-card">
+                            <i class="icon ti-settings"></i>
+                            <h4 class="service-title">
+                                <a href="/opportunities">Study Abroad</a>
+                            </h4>
+                            <p class="service-description">
+                                Unlock your study abroad dream and grab global opportunities on time by regularly visiting our Study Abroad page.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+
+    <script>
+        // Add animation to the subtitle in the "About Me" section
+        const subtitle = document.querySelector(".header-subtitle");
+        subtitle.classList.add("animated-text");
+
+        // Add animation to the buttons in the "Services" section
+        const buttons = document.querySelectorAll(".btn");
+        buttons.forEach(button => {
+            button.addEventListener("mouseenter", () => {
+                button.classList.add("btn-hover");
+            });
+            button.addEventListener("mouseleave", () => {
+                button.classList.remove("btn-hover");
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+<style>
+    .header-container {
+        position: relative; /* Ensure relative positioning */
+        max-width: 100%; /* Constrain width to the header */
+        overflow: hidden; /* Hide overflow from the image */
+        height: 100vh; /* Set the height of the header */
+    }
+
+    
+    .trapezium-image {
+        margin-top: 68px;
+        position: absolute;
+        top: 0;
+        right: 0; /* Set the image to the extreme right */
+        bottom: 0;
+        width: 50%; /* Adjust this value to control the width of the trapezium image */
+        overflow: hidden;
+        transform: skewX(15deg);
+        transform-origin: top right;
+      }
+    
+      .trapezium-image img {
+        position: absolute;
+        top: 0;
+        left: 0; /* Adjust the left to 0 to align the image within the trapezium */
+        width: 100%;
+        height: 61.5%;
+        transform: skewX(-15deg);
+        transform-origin: top left;
+      }
+      
+      /* Apply styles for screens with a maximum width of 767px (typical for mobile devices) */
+      @media (max-width: 767px) {
+        .trapezium-image {
+          display: none; /* Hide the image on mobile */
+        }
+      }
+
+    /* Global Styles */
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    /* Header Section */
+    .header {
+        background-color: #333;
+        color: #fff;
+        padding: 100px 0;
+        text-align: center;
+    }
+
+    .header-title {
+        font-size: 48px;
+        margin-bottom: 20px;
+    }
+
+    .header-subtitle {
+        font-size: 24px;
+        margin-bottom: 40px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 18px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    /* About Section */
+    .section {
+        padding: 80px 0;
+    }
+
+    .section-title {
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+
+    .section-subtitle {
+        font-size: 20px;
+        margin-bottom: 40px;
+    }
+
+    /* Service Section */
+    .bg-light {
+        background-color: #f9f9f9;
+    }
+
+    .service-card {
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 20px;
+    }
+
+    /* Center Card */
+    .center-card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 300px;
+    }
+
+    /* Animation for the "About" section */
+    .animated-text {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s ease-in-out forwards;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Animation for the buttons in the "Services" section */
+    .btn-hover {
+        animation: pulse 0.5s ease-in-out;
+    }
+
+    @keyframes pulse {
+        from {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        to {
+            transform: scale(1);
+        }
+    }
+
+</style>
+
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %} Book a 1:1 Session{% endblock title %}
+
+{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Slots</title>
+</head>
+<body>
+<div class="container">
+     <div class="booking-slots-content">
+        <h1>Available Slots</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Book</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for slot in slots %}
+                <tr>
+                    <td>{{ slot.date }}</td>
+                    <td>{{ slot.start_time }} - {{ slot.end_time }}</td>
+                    <td><a class="booking-link" href="{% url 'home:book_slot' slot.id %}">Book</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No slots available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#NoSlotModal">
+                No Suitable Slots?
+              </button>
+        </table>
+    </div>
+</div>  
+</body>
+</html>
+
+<div class="modal" id="NoSlotModal" tabindex="-1" aria-labelledby="NoSlotModal" aria-hidden="true" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Slots Enquiry</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p> If there's no slot available (or the slots available are not suitable for you), It's probably due to I forgot to open and save them in database.<br>
+            You may go to contact page and send an enquiry message from there.<br>
+        <hr>
+        <h6>Thanks for visiting us</h6></p>
+        </div>
+        <div class="modal-footer">
+        <a class="btn btn-success" href="/contact" role="button">Contact Us</a>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+<style>
+/* styles.css */
+
+.booking-slots-content {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.booking-slots-content .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.booking-slots-content h1 {
+    text-align: center;
+}
+
+.booking-slots-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.booking-slots-content th,
+.booking-slots-content td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.booking-slots-content th {
+    background-color: #f2f2f2;
+}
+
+.booking-slots-content .booking-link {
+    color: #4caf50;
+    text-decoration: none;
+}
+
+.booking-slots-content .booking-link:hover {
+    text-decoration: underline;
+}
+
+/* Add any additional styles specific to the booking slots content if needed */
+</style>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+<!-- blog/templates/blog/summary_page.html -->
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Summary Page</title>
+</head>
+<body>
+    <!-- Display the summarized content -->
+    <h1>Summary Page</h1>
+    <div>
+        {{ summarized_text }}
+    </div>
+
+    <!-- Add a link to go back to the blog post -->
+    <a href="{% url 'blog_post' post_id %}" class="btn btn-primary">Back to Blog Post</a>
+</body>
+</html>

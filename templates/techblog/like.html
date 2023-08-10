@@ -1,0 +1,11 @@
+<form action="{% url 'TechBlog:handleLike' post.pk %}" method="POST" id="like-form">
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+        <button type="submit" name="sno" value="{{ post.sno }}" class="btn btn-sm {% if has_liked %}btn-success{% else %}btn-info{% endif %}">
+            {% if has_liked %}Liked{% else %}Like{% endif %}
+        </button>
+    {% else %}
+        <p><strong>Please login to like this post.</strong></p>
+    {% endif %}
+</form> 
+

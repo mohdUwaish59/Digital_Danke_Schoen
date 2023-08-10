@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+
+{% block title %}Study Abroad - Digital Danke Schön{% endblock %}
+{% load custom_filters %}
+
+{% block abroadactive %} active{% endblock abroadactive %}
+
+{% block body %}
+
+
+<div class="container">
+    <div class="jumbotron my-3">
+      <div class="row">
+        <div class="col-md-6 jumbotron-content">
+          <!-- Your jumbotron content goes here -->
+          <div class="intro-text">
+          <h1 id="typed-intro" class="display-4"></h1>
+          </div>
+          <hr class="my-6">
+          <p class="lead">Explore Articles about <span id="typed-container" class="typing-animation"></span></p>
+          <hr class="my-2">
+          <a class="btn btn-outline-dark" href="/available_slots" role="button">Book a 1:1 Session</a>
+          <a class="btn btn-outline-success" href="/PDF" role="button">Download Free E-book PDF</a>
+          <a class="btn btn-outline-primary" href="/opportunities" role="button">Study Abroad Announcements</a>
+          <!-- Add more buttons here as needed -->
+        </div>
+        <div class="col-md-6 trapezium-image">
+          {% load static %}
+         
+          <img src="/static/img/study_abroad.png" alt="Logo">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+<div class="container my-3"> <hr>
+    <h2>Study Abroad Announcements by Digital Danke Schön</h2><hr>
+    <br>
+</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <!-- Heading for Mobile -->
+                <a href="{% url 'home:study_opportunity_view' %}" class="btn btn-outline-dark">MS/PHDs</a>
+                <!-- Button for toggling on Mobile -->
+                <button class="btn btn-link d-block d-sm-none" type="button" data-toggle="collapse" data-target="#studyOpportunities">
+                    <i class="fa fa-chevron-down float-right"></i>
+                </button>
+                <!-- Heading for Computer -->
+                
+                <div class="collapse d-sm-block" id="studyOpportunities">
+                    <hr>
+                    {% for opportunity in os %}
+                    <button class="btn btn-link" aria-expanded="true" aria-controls="opportunity{{ opportunity.id }}">
+                            {{ opportunity.title }}
+                        </button>
+                        <hr>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm">
+                <!-- Heading for Mobile -->
+                <a href="{% url 'home:scholarship_opportunity_view' %}" class="btn btn-outline-info">Scholarships</a>
+                <!-- Button for toggling on Mobile -->
+                <button class="btn btn-link d-block d-sm-none" type="button" data-toggle="collapse" data-target="#scholarshipOpportunities">
+                    <i class="fa fa-chevron-down float-right"></i>
+                </button>
+                <!-- Heading for Computer -->
+                <div class="collapse d-sm-block" id="scholarshipOpportunities">
+                    <hr>
+                    {% for scholarship_opportunity in osc %}
+                        <button class="btn btn-link" type="button">
+                            {{ scholarship_opportunity.title }}
+                        </button>
+                        <hr>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm">
+                <!-- Heading for Mobile -->
+                <a href="{% url 'home:job_opportunity_view' %}" class="btn btn-outline-success">Jobs</a>
+                <!-- Button for toggling on Mobile -->
+                <button class="btn btn-link d-block d-sm-none" type="button" data-toggle="collapse" data-target="#jobOpportunities">
+                    <i class="fa fa-chevron-down float-right"></i>
+                </button>
+                <!-- Heading for Computer -->
+                <div class="collapse d-sm-block" id="jobOpportunities">
+                    <hr>
+                    {% for job_opportunity in oj %}
+                        <button class="btn btn-link" type="button">
+                            {{ job_opportunity.title }}
+                        </button>
+                        <hr>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle icon rotation for collapsible elements
+        $(document).ready(function () {
+            $('.collapse').on('show.bs.collapse', function () {
+                $(this).prev().find('.fa').addClass('rotate-icon');
+            });
+
+            $('.collapse').on('hide.bs.collapse', function () {
+                $(this).prev().find('.fa').removeClass('rotate-icon');
+            });
+        });
+    </script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var typed = new Typed('#typed-intro', {
+          strings: ['<strong> Study Abroad</strong>'],
+          typeSpeed: 60,
+          loop: false
+        });
+      });
+        // Wait for the document to be fully loaded
+        document.addEventListener("DOMContentLoaded", function () {
+          // Configure Typed.js
+          var typed = new Typed("#typed-container", {
+            strings: ["Study Abroad opportunities", "Scholarship Opportunities", "Job Opportunities"],
+            typeSpeed: 200, // Speed of typing in milliseconds
+            backSpeed: 70, // Speed of erasing in milliseconds
+            loop: true, // Whether to keep looping through the words
+            loopCount: Infinity, // How many times to loop (Infinity for endless loop)
+          });
+        });
+    </script>
+
+
+<style>
+                
+    @keyframes typing {
+        from {
+        width: 0;
+        }
+        to {
+        width: 100%;
+        }
+        }
+        
+        .typing-animation {
+            animation: typing 2s linear;
+            } 
+            #typed-container {
+                color: #174151; 
+                font-weight: bold;
+              font-style: italic;
+              }
+            
+              .display-4 {
+                font-size: 1.8em;
+                font-weight: bold;
+                color: #174151;
+              }
+            
+                .jumbotron {
+                    position: relative;
+                    padding: 3rem;
+                    background-color: #f8f9fa;
+                  }
+                
+                  .jumbotron-content {
+                    z-index: 1;
+                  }
+                
+                  .trapezium-image {
+                    position: absolute;
+                    top: 0;
+                    right: 0; /* Set the image to the extreme right */
+                    bottom: 0;
+                    width: 50%; /* Adjust this value to control the width of the trapezium image */
+                    overflow: hidden;
+                    transform: skewX(15deg);
+                    transform-origin: top right;
+                  }
+                
+                  .trapezium-image img {
+                    position: absolute;
+                    top: 0;
+                    left: 0; /* Adjust the left to 0 to align the image within the trapezium */
+                    width: 100%;
+                    height: 100%;
+                    transform: skewX(-15deg);
+                    transform-origin: top left;
+                  }
+                  
+                  /* Apply styles for screens with a maximum width of 767px (typical for mobile devices) */
+                  @media (max-width: 767px) {
+                    .trapezium-image {
+                      display: none; /* Hide the image on mobile */
+                    }
+                  }
+                </style>
+{% endblock %}

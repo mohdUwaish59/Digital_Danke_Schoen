@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %} Search Results {% endblock title %}
+
+{% block body %}
+<div class="container my-3">
+    <h2>Search results for {{query}}: </h2>
+    {% if allPosts|length < 1 and allTechPosts|length < 1 %}
+   <p>No search results</p>
+    Your search query : <b>{{query}}</b> did not match any documents. <br>
+    Suggestions:
+    <ul>
+    <li>Make sure that all words are spelled correctly.</li>
+    <li>Try more general keywords.</li>
+   <li> Try fewer keywords.</li>
+   <li> Try different keywords.</li>
+    </li>
+    </ul>
+    {% endif %}
+    
+    {% if allPosts|length >= 1 and allTechPosts|length < 1 %}
+<div class="container my-3">
+<div class="row">
+    <h2>Blog posts related to {{query}}</h2>
+    {% for post in allPosts  %}
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title custom-card-header">{{ post.title }}</h5>
+                <strong class="d-inline-block mb-2 text-primary">Article by {{ post.author }}</strong>
+                <p class="card-text">{{ post.content|safe|truncatechars:200 }}</p>
+                <a href="/blog/{{post.slug}}" class="btn btn-dark">Read More</a>
+                <strong class="d-inline-block mb-2 text-primary">{{ post.tags }}</strong>
+            </div>
+        </div>
+    </div>
+
+        {% endfor %}
+        {% endif %}
+
+        {% if allTechPosts|length >= 1 and allPosts|length < 1 %}
+        <h2>Tech Blog posts related to {{query}}</h2>
+        {% for post in allTechPosts  %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title custom-card-header">{{ post.title }}</h5>
+                    <strong class="d-inline-block mb-2 text-primary">Article by {{ post.author }}</strong>
+                    <p class="card-text">{{ post.content|safe|truncatechars:200 }}</p>
+                    <a href="/techblog/{{post.slug}}" class="btn btn-info">Read More</a>
+                </div>
+            </div>
+        </div>
+           
+            {% endfor %}
+            {% endif %}
+
+            {% if allPosts|length >= 1 and allTechPosts|length >= 1 %}
+            <h2>Tech posts related to {{query}}</h2>
+<div class="container my-3">
+<div class="row">
+    {% for post in allTechPosts  %}
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title custom-card-header">{{ post.title }}</h5>
+                <strong class="d-inline-block mb-2 text-primary">Article by {{ post.author }}</strong>
+                <p class="card-text">{{ post.content|safe|truncatechars:200 }}</p>
+                <a href="/techblog/{{post.slug}}" class="btn btn-info">Read More</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <hr>
+
+    <h2>Blog posts related to {{query}}</h2>
+<div class="container my-3">
+<div class="row">
+    {% for post in allPosts  %}
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title custom-card-header">{{ post.title }}</h5>
+                <strong class="d-inline-block mb-2 text-primary">Article by {{ post.author }}</strong>
+                <p class="card-text">{{ post.content|safe|truncatechars:200 }}</p>
+                <a href="/blog/{{post.slug}}" class="btn btn-dark">Read More</a>
+            </div>
+        </div>
+    </div>
+
+        {% endfor %}
+        {% endif %}
+
+</div>
+</div>
+        <style>
+        .custom-card-header {
+          background-color: grey;
+          color: white;
+          padding: 10px;
+        }
+      </style>
+ {% endblock %}

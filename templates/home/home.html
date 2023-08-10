@@ -1,0 +1,351 @@
+{% extends 'base.html' %}
+
+{% block title %}Digital Danke Schön - Home{% endblock title %}
+
+{% block homeactive %}active{% endblock homeactive %}
+{% now "Y" as current_year %}
+
+{% load tz %}
+<!-- Add this in the <head> section of your HTML template -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+
+{% block body %}
+<div class="container">
+  <div class="jumbotron my-3">
+    <div class="row">
+      <div class="col-md-6 jumbotron-content">
+        <!-- Your jumbotron content goes here -->
+        <div class="intro-text">
+          <h1 id="typed-intro" class="display-4"></h1>
+        </div>
+        <hr class="my-6">
+        <p class="lead">Explore Articles about <span id="typed-container" class="typing-animation"></span></p>
+        <hr class="my-2">
+        <a class="btn btn-outline-info" href="/techblog" role="button">Explore Technical Articles</a>
+        <a class="btn btn-outline-dark" href="/blog" role="button">Study in Germany</a>
+        <a class="btn btn-outline-success" href="/PDF" role="button">Download Free E-book PDF</a>
+        <a class="btn btn-outline-primary" href="/opportunities" role="button">Study Abroad Announcements</a>
+        <!-- Add more buttons here as needed -->
+      </div>
+      <div class="col-md-6 trapezium-image">
+        {% load static %}
+        <img src="/static/img/home_image.png" alt="Logo">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Large Screen Carousel for tech posts -->
+<div class="container large-screen-carousel">
+ <br> <h2>Popular Technical Articles</h2><hr><br>
+  <div id="tech-blog-slider" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      {% for post in techBlogPostsByLike %}
+      {% if forloop.counter0|divisibleby:4 %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="row">
+      {% endif %}
+        <div class="col-12 col-md-3">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title custom-card-header">{{ post.title |safe|truncatechars:35 }}</h5>
+              <p class="card-text">{{ post.content|safe|truncatechars:200 }}</p>
+              <a href="/techblog/{{post.slug}}" class="btn btn-outline-info">Read More</a>
+            </div>
+          </div>
+        </div>
+      {% if forloop.counter0|add:1|divisibleby:4 or forloop.last %}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#tech-blog-slider" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#tech-blog-slider" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
+<!-- Mobile Carousel for tech posts -->
+<div class="container mobile-carousel">
+  <h2>Popular Technical Articles</h2><hr><br>
+  <div id="mobile-tech-blog-slider" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      {% for post in techBlogPostsByLike %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="col-12 col-md-3">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title custom-card-header">{{ post.title |safe|truncatechars:35 }}</h5>
+              <p class="card-text">{{ post.content|safe|truncatechars:200 }}</p>
+              <a href="/techblog/{{post.slug}}" class="btn btn-outline-info">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#mobile-tech-blog-slider" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#mobile-tech-blog-slider" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
+
+
+
+<!-- Large Screen Carousel for blog posts -->
+<div class="container large-screen-carousel">
+  <h2>Popular in Study in Germany</h2> <hr><br>
+  <div id="tech-blog-slider" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      {% for post in blogPostsByLike %}
+      {% if forloop.counter0|divisibleby:4 %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="row">
+      {% endif %}
+        <div class="col-12 col-md-3">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title custom-card-header">{{ post.title |safe|truncatechars:35 }}</h5>
+              <p class="card-text">{{ post.content|safe|truncatechars:200 }}</p>
+              <a href="/techblog/{{post.slug}}" class="btn btn-outline-info">Read More</a>
+            </div>
+          </div>
+        </div>
+      {% if forloop.counter0|add:1|divisibleby:4 or forloop.last %}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#tech-blog-slider" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#tech-blog-slider" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+<br>
+<br>
+
+<!-- Mobile Carousel for blog posts -->
+<div class="container mobile-carousel">
+  <h2>Popular in Study in Germany</h2><hr><br>
+  <div id="mobile-tech-blog-slider" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      {% for post in blogPostsByLike %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="col-12 col-md-3">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title custom-card-header">{{ post.title |safe|truncatechars:35 }}</h5>
+              <p class="card-text">{{ post.content|safe|truncatechars:200 }}</p>
+              <a href="/techblog/{{post.slug}}" class="btn btn-outline-info">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <br>
+    <br>
+    <a class="carousel-control-prev" href="#mobile-tech-blog-slider" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#mobile-tech-blog-slider" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Rest of your template content -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var typed = new Typed('#typed-intro', {
+      strings: ['<strong> DigitalDankeSchön</strong>'],
+      typeSpeed: 60,
+      loop: false
+    });
+  });
+  // Wait for the document to be fully loaded
+  document.addEventListener("DOMContentLoaded", function () {
+    // Configure Typed.js for the container
+    var typed = new Typed("#typed-container", {
+      strings: ["Tech", "Data Science", "Study in Germany"],
+      typeSpeed: 100, // Speed of typing in milliseconds
+      backSpeed: 50, // Speed of erasing in milliseconds
+      loop: true, // Whether to keep looping through the words
+      loopCount: Infinity, // How many times to loop (Infinity for endless loop)
+    });
+  });
+</script>
+
+
+
+
+<style> @keyframes typing {
+from {
+width: 0;
+}
+to {
+width: 100%;
+}
+}
+
+.typing-animation {
+animation: typing 2s linear;
+} </style>
+
+
+<style>
+  #typed-container {
+    color: #174151; 
+    font-weight: bold;
+  font-style: italic;
+  }
+
+  .display-4 {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #174151;
+  }
+
+    .jumbotron {
+        position: relative;
+        padding: 3rem;
+        background-color: #f8f9fa;
+      }
+    
+      .jumbotron-content {
+        z-index: 1;
+      }
+    
+      .trapezium-image {
+        position: absolute;
+        top: 0;
+        right: 0; /* Set the image to the extreme right */
+        bottom: 0;
+        width: 50%; /* Adjust this value to control the width of the trapezium image */
+        overflow: hidden;
+        transform: skewX(15deg);
+        transform-origin: top right;
+      }
+    
+      .trapezium-image img {
+        position: absolute;
+        top: 0;
+        left: 0; /* Adjust the left to 0 to align the image within the trapezium */
+        width: 100%;
+        height: 100%;
+        transform: skewX(-15deg);
+        transform-origin: top left;
+      }
+      
+      /* Apply styles for screens with a maximum width of 767px (typical for mobile devices) */
+      @media (max-width: 767px) {
+        .trapezium-image {
+          display: none; /* Hide the image on mobile */
+        }
+      }
+
+
+
+    .btn {
+        margin-bottom: 20px; /* Adjust the value as per your requirement */
+    }
+
+  .custom-card-header {
+    background-color: #174151;
+    color: white;
+    padding: 10px;
+  }
+
+    .cards-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+    .card img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+    .card {
+        margin: 0 0.5em;
+        box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+        border: none;
+        border-radius: 0;
+    }
+    .carousel-inner {
+        padding: 1em;
+    }
+    .carousel-control-prev,
+    .carousel-control-next {
+        background-color: #e1e1e1;
+        width: 5vh;
+        height: 5vh;
+        border-radius: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    @media (min-width: 576px) {
+        .col-md-3 {
+            flex-basis: 25%;
+            max-width: 25%;
+        }
+    }
+    @media (max-width: 575.98px) {
+        .col-12 {
+            flex-basis: 100%;
+            max-width: 100%;
+        }
+    }
+
+
+
+
+
+
+
+    /* Define the styles for the mobile carousel */
+    .mobile-carousel {
+      display: block; /* Display mobile carousel */
+    }
+  
+    /* Define the styles for the large screen carousel */
+    .large-screen-carousel {
+      display: none; /* Hide large screen carousel by default */
+    }
+  
+    /* Use media query to show the large screen carousel on larger screens */
+    @media (min-width: 768px) {
+      .mobile-carousel {
+        display: none; /* Hide mobile carousel on larger screens */
+      }
+      .large-screen-carousel {
+        display: block; /* Display large screen carousel on larger screens */
+      }
+    }
+</style>
+
+{% endblock %}

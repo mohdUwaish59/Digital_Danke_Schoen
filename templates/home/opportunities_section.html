@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% load custom_filters %} <!-- Load the custom filter -->
+{% block abroadactive %} active{% endblock abroadactive %}
+{% block title %}{{ category }} - Digital Danke Schön{% endblock %}
+
+{% block body %}
+    {% load humanize %}
+    {% load extras %}
+    <div class="container my-3">
+        <h2>{{ category }}</h2> <hr><br>
+        <div class="accordion" id="opportunitiesAccordion">
+            {% for opportunity in page_obj %}
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center" id="opportunity{{ opportunity.id }}Header">
+                    <div>
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#opportunity{{ opportunity.id }}" aria-expanded="true" aria-controls="opportunity{{ opportunity.id }}">
+                                {{ opportunity.title }}
+                            </button>
+                        </h5>
+                    </div>
+                    <div>
+                        <!-- Date as plain text, on the far right -->
+                        {{ opportunity.timestamp | date:"M d, Y" }}
+                    </div>
+                </div>
+
+                <div id="opportunity{{ opportunity.id }}" class="collapse" aria-labelledby="opportunity{{ opportunity.id }}Header" data-parent="#opportunitiesAccordion">
+                    <div class="card-body">
+                        <p>{{ opportunity.description | safe}} </p>
+                        <hr class="divider">
+                        <!-- Display other opportunity details as needed -->
+                        {% if opportunity.media %}
+                            {% if opportunity.media.url|is_image %}
+                                <img src="{{ opportunity.media.url }}" alt="Opportunity Media" class="opportunity-image-frame">
+                            {% else %}
+                            <b>For more information, Download the attchment:</b>
+                                <a href="{% url 'home:download_pdf_opportunity_media' opportunity.id  %}" class="btn btn-primary" download>Download PDF</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+ <!-- Display pagination links -->
+<div class="pagination">
+    <ul class="pagination-list">
+        {% if page_obj.has_previous %}
+            <li class="pagination-item">
+                <a href="?page=1" class="btn btn-outline-info pagination-link">&laquo; first</a>
+            </li>
+            <li class="pagination-item">
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-info pagination-link">previous</a>
+            </li>
+        {% endif %}
+
+        <li class="pagination-item">
+            <span class="current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+        </li>
+
+        {% if page_obj.has_next %}
+            <li class="pagination-item">
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-info pagination-link">next</a>
+            </li>
+            <li class="pagination-item">
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-info pagination-link">&raquo; last</a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+
+
+    <style>
+        .opportunity-image-frame {
+            display: block;
+            border: 4px solid #ccc;
+            border-radius: 20px;
+            max-width: 70%;
+            height: auto;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            margin-bottom: 20px; /* Added margin at the bottom */
+            display: flex;
+            justify-content: center;
+        }
+    
+        .pagination-list {
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+    
+        .pagination-item {
+            margin: 0 5px;
+        }
+    
+        .pagination-link {
+            padding: 6px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #333;
+        }
+    
+        .pagination-link:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+{% endblock %}

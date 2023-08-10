@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Subscription Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        .title {
+            font-size: 24px;
+            color: #333333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            font-size: 16px;
+            color: #666666;
+            margin-bottom: 20px;
+        }
+
+        .download-button {
+            display: block;
+            width: 200px;
+            height: 40px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-align: center;
+            line-height: 40px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 0 auto;
+        }
+
+        .footer {
+            font-size: 14px;
+            color: #999999;
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Let's Move to Germany</div>
+        <div class="message">Thank you for choosing to download the PDF! Click the button below to download your PDF.</div>
+        <a class="download-button" href="{{ download_link }}">Download PDF</a>
+        <div class="footer">This is a system-generated email. Please do not reply.</div>
+    </div>
+</body>
+</html>
+
